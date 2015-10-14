@@ -8,6 +8,8 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "BadgeInfo.h"
+
 
 @interface MasterViewController ()
 
@@ -19,11 +21,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    
+   
+    NSURL *profileURL = [NSURL URLWithString:@"http://teamtreehouse.com/sachinvirdy.json"];
+    NSData *jsonData = [NSData dataWithContentsOfURL:profileURL];
+    
+    NSError *error = nil;
+    
+    NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    NSLog(@"%@", dataDictionary);
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    self.badges = [NSMutableArray array];
+    
+    NSArray *badgesArray = [dataDictionary objectForKey:@"badges"];
+    
+    for (NSDictionary *badgesDictionary in badgesArray) {
+        BadgeInfo *badge = [BadgeInfo badgeWithName:[badgesDictionary objectForKey:@"name"]];
+        badge.earnedDate = [badgesDictionary objectForKey:@"earned_date"];
+        badge.icon_url = [badgesDictionary objectForKey:@"icon_url"];
+        badge.url = [badgesDictionary objectForKey:@"url"];
+        [self.badges addObject:badge];
+    }
+    
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -36,14 +58,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
 
 #pragma mark - Segues
 
@@ -65,29 +79,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return self.badges.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    BadgeInfo *badge = [self.badges objectAtIndex:indexPath.row];
+    
+    NSData *iconData = [NSData dataWithContentsOfURL:badge.icon_url_link];
+    UIImage *icon = [UIImage imageWithData:iconData];
+    cell.imageView.image = icon;
+    cell.textLabel.text = badge.name;
+    cell.detailTextLabel.text = badge.earnedDate;
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
 
 @end

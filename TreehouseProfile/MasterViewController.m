@@ -29,7 +29,6 @@
     NSError *error = nil;
     
     NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    NSLog(@"%@", dataDictionary);
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     self.badges = [NSMutableArray array];
@@ -40,7 +39,7 @@
         BadgeInfo *badge = [BadgeInfo badgeWithName:[badgesDictionary objectForKey:@"name"]];
         badge.earnedDate = [badgesDictionary objectForKey:@"earned_date"];
         badge.icon_url = [badgesDictionary objectForKey:@"icon_url"];
-        badge.url = [badgesDictionary objectForKey:@"url"];
+        badge.url = [NSURL URLWithString:[badgesDictionary objectForKey:@"url"]];
         [self.badges addObject:badge];
     }
     
@@ -48,10 +47,10 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
-    [super viewWillAppear:animated];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
+//    [super viewWillAppear:animated];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -64,9 +63,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        BadgeInfo *badge = [self.badges objectAtIndex:indexPath.row];
+        [segue.destinationViewController setBadgeURL:badge.url];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
@@ -82,6 +81,10 @@
     return self.badges.count;
 }
 
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
@@ -91,7 +94,7 @@
     UIImage *icon = [UIImage imageWithData:iconData];
     cell.imageView.image = icon;
     cell.textLabel.text = badge.name;
-    cell.detailTextLabel.text = badge.earnedDate;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Date Earned: %@",[badge formattedDate]];
     return cell;
 }
 

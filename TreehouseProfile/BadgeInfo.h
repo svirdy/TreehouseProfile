@@ -18,4 +18,5 @@
 +(id) badgeWithName:(NSString *)name;
 
 -(NSURL *) icon_url_link;
+-(NSString *) formattedDate;
 @end

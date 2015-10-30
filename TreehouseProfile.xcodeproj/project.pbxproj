@@ -14,8 +14,7 @@
 		17CD17E21BCDC3EF0036814C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17CD17E01BCDC3EF0036814C /* Main.storyboard */; };
 		17CD17E41BCDC3EF0036814C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17CD17E31BCDC3EF0036814C /* Assets.xcassets */; };
 		17CD17E71BCDC3EF0036814C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17CD17E51BCDC3EF0036814C /* LaunchScreen.storyboard */; };
-		17CD17F01BCDCA8A0036814C /* BadgeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CD17EF1BCDCA8A0036814C /* BadgeInfo.m */; settings = {ASSET_TAGS = (); }; };
-		17CD17F31BCDCD0E0036814C /* CourseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CD17F21BCDCD0E0036814C /* CourseInfo.m */; settings = {ASSET_TAGS = (); }; };
+		17CD17F01BCDCA8A0036814C /* BadgeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CD17EF1BCDCA8A0036814C /* BadgeInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +32,6 @@
 		17CD17E81BCDC3EF0036814C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17CD17EE1BCDCA8A0036814C /* BadgeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeInfo.h; sourceTree = "<group>"; };
 		17CD17EF1BCDCA8A0036814C /* BadgeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeInfo.m; sourceTree = "<group>"; };
-		17CD17F11BCDCD0E0036814C /* CourseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseInfo.h; sourceTree = "<group>"; };
-		17CD17F21BCDCD0E0036814C /* CourseInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +77,6 @@
 				17CD17D41BCDC3EF0036814C /* Supporting Files */,
 				17CD17EE1BCDCA8A0036814C /* BadgeInfo.h */,
 				17CD17EF1BCDCA8A0036814C /* BadgeInfo.m */,
-				17CD17F11BCDCD0E0036814C /* CourseInfo.h */,
-				17CD17F21BCDCD0E0036814C /* CourseInfo.m */,
 			);
 			path = TreehouseProfile;
 			sourceTree = "<group>";
@@ -166,7 +161,6 @@
 			files = (
 				17CD17D91BCDC3EF0036814C /* AppDelegate.m in Sources */,
 				17CD17DC1BCDC3EF0036814C /* MasterViewController.m in Sources */,
-				17CD17F31BCDCD0E0036814C /* CourseInfo.m in Sources */,
 				17CD17D61BCDC3EF0036814C /* main.m in Sources */,
 				17CD17F01BCDCA8A0036814C /* BadgeInfo.m in Sources */,
 				17CD17DF1BCDC3EF0036814C /* DetailViewController.m in Sources */,
@@ -231,7 +225,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -268,7 +262,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -316,6 +310,7 @@
 				17CD17ED1BCDC3EF0036814C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

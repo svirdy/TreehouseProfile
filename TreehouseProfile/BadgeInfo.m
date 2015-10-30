@@ -29,6 +29,13 @@
 -(NSURL *) icon_url_link {
     return [NSURL URLWithString:self.icon_url];
 }
-
+-(NSString *) formattedDate {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate *date = [dateFormatter dateFromString:self.earnedDate];
+    
+    [dateFormatter setDateFormat:@"EEEE, MMM dd, yyyy"];
+    return [dateFormatter stringFromDate:date];
+}
 
 @end
